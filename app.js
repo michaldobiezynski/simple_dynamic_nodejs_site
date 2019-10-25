@@ -1,10 +1,13 @@
 const http = require('http');
+const router = require("router.js");
 
 const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((request, response) => {
-    homeRoute(request,response);
+    router.home(request,response);
+    router.user(request,response);
+
 });
 
 server.listen(port, hostname, () => {
@@ -12,25 +15,5 @@ server.listen(port, hostname, () => {
 });
 
 
-    function homeRoute(request, response) {
-    if(request.url === "/") {
-        response.statusCode = 200;
-        response.setHeader('Content-Type', 'text/plain');
-        response.write("Header\n");
-        response.write("Search\n");
-        response.end("Footer\n");
-    }
 
-    function userRoute(request, response) {
 
-        const username = request.url.replace(/, "");
-            if(username.length > 0) {
-                response.statusCode = 200;
-                response.setHeader('Content-Type', 'text/plain');
-                response.write("Header\n");
-                response.write(username + "\n");
-                response.end("Footer\n");
-            }
-    }
-
-    }
