@@ -12,7 +12,7 @@ server.listen(port, hostname, () => {
 });
 
 
-function homeRoute(request, response) {
+    function homeRoute(request, response) {
     if(request.url === "/") {
         response.statusCode = 200;
         response.setHeader('Content-Type', 'text/plain');
@@ -21,4 +21,16 @@ function homeRoute(request, response) {
         response.end("Footer\n");
     }
 
-}
+    function userRoute(request, response) {
+
+        const username = request.url.replace(/, "");
+            if(username.length > 0) {
+                response.statusCode = 200;
+                response.setHeader('Content-Type', 'text/plain');
+                response.write("Header\n");
+                response.write(username + "\n");
+                response.end("Footer\n");
+            }
+    }
+
+    }
