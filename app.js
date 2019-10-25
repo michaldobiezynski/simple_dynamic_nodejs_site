@@ -4,15 +4,19 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((request, response) => {
-    response.statusCode = 200;
-    response.setHeader('Content-Type', 'text/plain');
-    setInterval(function(){
-        response.write(new Date() + "\n");
-    }, 1000);
-    //response.end('Hello World\n');
+    homeRoute(request,response);
 });
 
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
+
+function homeRoute(request, response) {
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/plain');
+    response.write("Header\n");
+    response.write("Search\n");
+    response.end("Footer\n");
+    
+}
