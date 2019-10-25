@@ -46,6 +46,7 @@ const Profile = require("./profile.js");
 
             studentProfile.on("error", function (error) {
 
+                response.write(error.message + "\n");
                 response.end("Footer\n");
 
             });
