@@ -8,7 +8,10 @@ const renderer = require('./renderer');
             response.statusCode = 200;
             response.setHeader('Content-Type', 'text/plain');
             renderer.view("header", {}, response);
-            response.end("Footer\n");
+            renderer.view("search", {}, response);
+            renderer.view("footer", {}, response);
+            response.end();
+
         }
 
     }
@@ -19,7 +22,7 @@ const renderer = require('./renderer');
         if(username.length > 0) {
             response.statusCode = 200;
             response.setHeader('Content-Type', 'text/plain');
-            response.write("Header\n");
+            renderer.view("header", {}, response);
 
             const studentProfile = new Profile(username);
 
@@ -32,23 +35,21 @@ const renderer = require('./renderer');
                     javascriptPoints:profileJSON.points.JavaScript,
                 }
 
-                response.write(
-                    values.username
-                    + " has "
-                    + values.badges
-                    + " badges\n"
-                );
 
-
-                response.end("Footer\n");
-
+                renderer.view("profile", values, response);
+                renderer.view("footer", {}, response);
+                response.end();
             });
 
             studentProfile.on("error", function (error) {
 
-                response.write(error.message + "\n");
-                response.end("Footer\n");
-
+                renderer.view(
+                    "error",
+                    {errorMessage: error.message},
+                    response);
+                renderer.view("search", {}, response);
+                renderer.view("footer", {}, response);
+                response.end();
             });
         }
     }
