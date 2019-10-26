@@ -1,12 +1,13 @@
 const Profile = require("./profile.js");
 const renderer = require('./renderer');
 
-
+const commonHeadersKey = 'Content-Type';
+const commonHeadersValue = 'text/html';
 
     function home(request, response) {
         if (request.url === "/") {
             response.statusCode = 200;
-            response.setHeader('Content-Type', 'text/plain');
+            response.setHeader(commonHeadersKey, commonHeadersValue);
             renderer.view("header", {}, response);
             renderer.view("search", {}, response);
             renderer.view("footer", {}, response);
@@ -21,7 +22,7 @@ const renderer = require('./renderer');
         const username = request.url.replace("/", "");
         if(username.length > 0) {
             response.statusCode = 200;
-            response.setHeader('Content-Type', 'text/plain');
+            response.setHeader(commonHeadersKey, commonHeadersValue);
             renderer.view("header", {}, response);
 
             const studentProfile = new Profile(username);
