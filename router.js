@@ -1,4 +1,5 @@
 const Profile = require("./profile.js");
+const renderer = require('./renderer');
 
 
 
@@ -6,8 +7,8 @@ const Profile = require("./profile.js");
         if (request.url === "/") {
             response.statusCode = 200;
             response.setHeader('Content-Type', 'text/plain');
-            response.write("Header\n");
-            response.write("Search\n");
+            renderer.view("header", {}, response);
+            //renderer.write("Search\n");
             response.end("Footer\n");
         }
 
