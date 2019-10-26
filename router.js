@@ -1,20 +1,30 @@
 const Profile = require("./profile.js");
 const renderer = require('./renderer');
+const querystring = require("querystring");
 
 const commonHeadersKey = 'Content-Type';
 const commonHeadersValue = 'text/html';
 
     function home(request, response) {
         if (request.url === "/") {
-            response.statusCode = 200;
-            response.setHeader(commonHeadersKey, commonHeadersValue);
-            renderer.view("header", {}, response);
-            renderer.view("search", {}, response);
-            renderer.view("footer", {}, response);
-            response.end();
+            if(request.method.toLowerCase() === "get") {
+                response.statusCode = 200;
+                response.setHeader(commonHeadersKey, commonHeadersValue);
+                renderer.view("header", {}, response);
+                renderer.view("search", {}, response);
+                renderer.view("footer", {}, response);
+                response.end();
 
+            } else {
+                request.on("data", function (postBody) {
+
+                    let query = querystring.parse(postBody.toString());
+                    response.write(query.username);
+                    response.end();
+
+                });
+            }
         }
-
     }
 
     function user(request, response) {
