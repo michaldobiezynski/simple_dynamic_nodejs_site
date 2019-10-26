@@ -19,7 +19,10 @@ const commonHeadersValue = 'text/html';
                 request.on("data", function (postBody) {
 
                     let query = querystring.parse(postBody.toString());
-                    response.write(query.username);
+
+                    response.writeHead
+                        (303, {"Location": "/" + query.username });
+
                     response.end();
 
                 });
