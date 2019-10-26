@@ -8,7 +8,6 @@ const renderer = require('./renderer');
             response.statusCode = 200;
             response.setHeader('Content-Type', 'text/plain');
             renderer.view("header", {}, response);
-            //renderer.write("Search\n");
             response.end("Footer\n");
         }
 

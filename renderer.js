@@ -2,13 +2,10 @@
 const fs = require('fs');
 
     function view(templateName, values, response) {
-    fs.readFile('./views/' + templateName + '/html',
-        function (error, fileContents) {
-        if(error) throw error;
 
+    const fileContents = fs.readFileSync('./views/' + templateName + '.html');
 
             response.write(fileContents);
-        })
 
     }
 
